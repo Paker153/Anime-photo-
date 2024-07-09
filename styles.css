@@ -1,89 +1,51 @@
-/* Reset CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* styles.css */
 body {
     font-family: Arial, sans-serif;
+    text-align: center;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1, h2, h3 {
-    text-align: center;
-    color: #333;
-}
-
-.upload-section, .gallery-section {
-    margin-bottom: 20px;
-}
-
-.upload-section h2, .gallery-section h2 {
-    margin-bottom: 10px;
-}
-
-.upload-section input[type=file], .upload-section button {
-    margin-top: 10px;
-    display: block;
-}
-
-.gallery-section img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.upload-section input[type=file] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.upload-section button {
-    background-color: #4CAF50;
+header {
+    background-color: #333;
     color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 4px;
+    padding: 1rem;
 }
 
-.upload-section button:hover {
-    background-color: #45a049;
+main {
+    padding: 2rem;
 }
 
-.gallery-section {
+#upload-section, #gallery-section {
+    margin-bottom: 2rem;
+}
+
+#gallery {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-@media screen and (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
+.image-container {
+    position: relative;
+    margin: 10px;
+}
 
-    .upload-section input[type=file], .upload-section button {
-        width: 100%;
-    }
+#gallery img {
+    max-width: 200px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.download-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
 }
