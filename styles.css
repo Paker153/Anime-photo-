@@ -1,78 +1,45 @@
+/* General styling */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
 header {
     background-color: #333;
-    color: #fff;
-    padding: 1rem 0;
+    color: white;
     text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5rem;
+    padding: 1rem 0;
 }
 
 main {
-    margin-top: 20px;
-}
-
-#upload-section, #gallery {
-    margin-bottom: 30px;
-}
-
-#upload-section input[type=file], #upload-section button {
-    margin-top: 10px;
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: none;
-    background-color: #4CAF50;
-    color: #fff;
-    cursor: pointer;
-}
-
-#upload-section input[type=file] {
-    margin-bottom: 10px;
-}
-
-#upload-section button:hover {
-    background-color: #45a049;
-}
-
-#gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.image-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.image-item:hover {
-    transform: translateY(-5px);
+/* Upload section styling */
+.upload-section {
+    margin-bottom: 20px;
 }
 
-.image-item img {
+.upload-section input[type=file], .upload-section button {
+    margin-top: 10px;
+}
+
+/* Gallery section styling */
+.gallery-section {
+    margin-bottom: 20px;
+}
+
+.gallery-section img {
     max-width: 100%;
     height: auto;
-    display: block;
-    border-radius: 5px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
