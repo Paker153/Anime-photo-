@@ -1,4 +1,10 @@
-/* General styling */
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -6,14 +12,7 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-}
-
-main {
+.container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
@@ -22,18 +21,22 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Upload section styling */
-.upload-section {
+h1, h2, h3 {
+    text-align: center;
+    color: #333;
+}
+
+.upload-section, .gallery-section {
     margin-bottom: 20px;
+}
+
+.upload-section h2, .gallery-section h2 {
+    margin-bottom: 10px;
 }
 
 .upload-section input[type=file], .upload-section button {
     margin-top: 10px;
-}
-
-/* Gallery section styling */
-.gallery-section {
-    margin-bottom: 20px;
+    display: block;
 }
 
 .gallery-section img {
@@ -42,4 +45,45 @@ main {
     margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.upload-section input[type=file] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.upload-section button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.upload-section button:hover {
+    background-color: #45a049;
+}
+
+.gallery-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .upload-section input[type=file], .upload-section button {
+        width: 100%;
+    }
 }
