@@ -1,32 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Title</title>
-    <!-- Link to your existing CSS file -->
+    <title>موقع رفع صور الأنمي</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Your existing website content -->
-
-    <!-- Section to upload and display anime images -->
-    <section class="upload-section">
-        <h2>Upload Your Anime Image</h2>
-        <input type="file" accept="image/*" id="fileInput">
-        <button onclick="uploadImage()">Upload</button>
-    </section>
-
-    <section class="gallery-section">
-        <h2>Recent Uploads</h2>
-        <div id="imageGallery"></div>
-    </section>
-
-    <!-- End of your existing website content -->
-
-    <!-- Include Cloudinary upload widget script -->
-    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-    <!-- Include script.js for custom JavaScript -->
+    <header>
+        <h1>مرحبًا بكم في موقع رفع صور الأنمي</h1>
+    </header>
+    <main>
+        <section id="upload-section">
+            <h2>رفع صورة أنمي</h2>
+            <input type="file" id="imageInput" accept="image/*">
+            <button onclick="uploadImage()">رفع الصورة</button>
+        </section>
+        <section id="gallery-section">
+            <h2>معرض الصور</h2>
+            <div id="gallery"></div>
+        </section>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
