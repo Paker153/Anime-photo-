@@ -1,61 +1,78 @@
 // script.js
-document.addEventListener('DOMContentLoaded', loadGallery);
+document.addEventListener('DOMContentLoaded', () => {
+    const player = document.getElementById('player');
+    const coin = document.getElementById('coin');
+    const obstacles = document.querySelectorAll('.obstacle');
+    let playerPosition = { x: 20, y: 20 };
+    let isJumping = false;
+    const gravity = 2;
 
-function uploadImage() {
-    const input = document.getElementById('imageInput');
-    const file = input.files[0];
-    if (!file) {
-        alert('يرجى اختيار صورة أولاً.');
-        return;
+    function movePlayer(direction) {
+        if (direction === 'left') {
+            playerPosition.x -= 10;
+        } else if (direction === 'right') {
+            playerPosition.x += 10;
+        } else if (direction === 'jump' && !isJumping) {
+            isJumping = true;
+            let jumpCount = 0;
+            const jumpInterval = setInterval(() => {
+                if (jumpCount < 15) {
+                    playerPosition.y += 15;
+                } else if (jumpCount < 30) {
+                    playerPosition.y -= 15;
+                } else {
+                    clearInterval(jumpInterval);
+                    isJumping = false;
+                }
+                jumpCount++;
+                updatePlayerPosition();
+            }, 20);
+        }
+        updatePlayerPosition();
     }
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const imageUrl = e.target.result;
-        saveImage(imageUrl);
-        displayImage(imageUrl);
-    };
-    reader.readAsDataURL(file);
-}
+    function updatePlayerPosition() {
+        player.style.left = `${playerPosition.x}px`;
+        player.style.bottom = `${playerPosition.y}px`;
+        checkCollision();
+    }
 
-function saveImage(url) {
-    let images = localStorage.getItem('animeImages');
-    images = images ? JSON.parse(images) : [];
-    images.push(url);
-    localStorage.setItem('animeImages', JSON.stringify(images));
-}
+    function checkCollision() {
+        obstacles.forEach(obstacle => {
+            const obstacleRect = obstacle.getBoundingClientRect();
+            const playerRect = player.getBoundingClientRect();
+            if (
+                playerRect.left < obstacleRect.right &&
+                playerRect.right > obstacleRect.left &&
+                playerRect.bottom > obstacleRect.top &&
+                playerRect.top < obstacleRect.bottom
+            ) {
+                alert('اصطدمت بالعقبة! اللعبة انتهت.');
+                resetGame();
+            }
+        });
 
-function loadGallery() {
-    let images = localStorage.getItem('animeImages');
-    images = images ? JSON.parse(images) : [];
-    images.forEach(url => displayImage(url));
-}
+        const coinRect = coin.getBoundingClientRect();
+        const playerRect = player.getBoundingClientRect();
+        if (
+            playerRect.left < coinRect.right &&
+            playerRect.right > coinRect.left &&
+            playerRect.bottom > coinRect.top &&
+            playerRect.top < coinRect.bottom
+        ) {
+            alert('لقد جمعت العملة الذهبية! تهانينا!');
+            resetGame();
+        }
+    }
 
-function displayImage(url) {
-    const gallery = document.getElementById('gallery');
-    const container = document.createElement('div');
-    container.className = 'image-container';
+    function resetGame() {
+        playerPosition = { x: 20, y: 20 };
+        updatePlayerPosition();
+    }
 
-    const img = document.createElement('img');
-    img.src = url;
+    document.getElementById('leftButton').addEventListener('click', () => movePlayer('left'));
+    document.getElementById('rightButton').addEventListener('click', () => movePlayer('right'));
+    document.getElementById('jumpButton').addEventListener('click', () => movePlayer('jump'));
 
-    const downloadButton = document.createElement('button');
-    downloadButton.className = 'download-button';
-    downloadButton.innerText = 'تنزيل';
-    downloadButton.onclick = function() {
-        downloadImage(url);
-    };
-
-    container.appendChild(img);
-    container.appendChild(downloadButton);
-    gallery.appendChild(container);
-}
-
-function downloadImage(url) {
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'anime-image';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+    updatePlayerPosition();
+});
