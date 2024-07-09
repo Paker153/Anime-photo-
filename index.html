@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Images Sharing</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Uploader</title>
+<style>
+  /* تنسيق بسيط للصفحة */
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Anime Images Sharing</h1>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            <section id="upload-section">
-                <h2>Upload Your Anime Image</h2>
-                <input type="file" id="image-upload" accept="image/*">
-                <button onclick="uploadImage()">Upload</button>
-            </section>
-            <section id="gallery">
-                <!-- Gallery section to display uploaded images -->
-            </section>
-        </div>
-    </main>
-    <script src="script.js"></script>
+  <h1>مرحبًا بك في موقع تحميل الصور</h1>
+
+  <!-- نموذج لتحميل الصور -->
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="fileInput" accept="image/*" required>
+    <button type="button" onclick="uploadImage()">رفع الصورة</button>
+  </form>
+
+  <!-- عرض الصور المحملة -->
+  <div id="imageContainer"></div>
+
+  <!-- نص التحميل -->
+  <p id="uploadStatus"></p>
+
+  <!-- السكريبت الجافا سكريبت -->
+  <script>
+    // دالة لرفع الصورة
+    function uploadImage() {
+      var fileInput = document.getElementById('fileInput');
+      var uploadForm = document.getElementById('uploadForm');
+      var formData = new FormData(uploadForm);
+
+      // عرض حالة التحميل
+      var uploadStatus = document.getElementById('uploadStatus');
+      uploadStatus.textContent = 'جارٍ رفع الصورة...';
+
+      // طلب HTTP POST إلى عنوان URL المستهدف
+      fetch('/upload', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        // عرض الصورة المحملة بنجاح
+        var imageContainer = document.getElementById('imageContainer');
+        var imgElement = document.createElement('img');
+        imgElement.src = result.imageUrl; // تستخدم الرد من الخادم لعرض عنوان URL للصورة
+        imgElement.alt = 'Uploaded Image';
+        imageContainer.appendChild(imgElement);
+        uploadStatus.textContent = 'تم رفع الصورة بنجاح!';
+      })
+      .catch(error => {
+        // التعامل مع أخطاء الرفع
+        uploadStatus.textContent = 'حدث خطأ أثناء رفع الصورة: ' + error.message;
+      });
+    }
+  </script>
 </body>
 </html>
