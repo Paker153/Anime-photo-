@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>موقع تحميل الصور</title>
 <style>
-  /* استخدام الألوان */
+  /* تعريف الألوان */
   :root {
     --primary-color: #3498db;
     --secondary-color: #2ecc71;
@@ -17,10 +17,11 @@
   body {
     font-family: Arial, sans-serif;
     background-color: var(--light-color);
+    color: var(--dark-color);
     text-align: center;
     margin: 20px;
-    color: var(--dark-color);
   }
+
   .container {
     max-width: 600px;
     margin: auto;
@@ -29,9 +30,11 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
+
   h1 {
     color: var(--primary-color);
   }
+
   form {
     margin-top: 20px;
     display: flex;
@@ -39,9 +42,11 @@
     align-items: center;
     flex-direction: column;
   }
+
   input[type="file"] {
     margin-bottom: 10px;
   }
+
   button {
     padding: 10px 20px;
     background-color: var(--secondary-color);
@@ -50,15 +55,18 @@
     cursor: pointer;
     border-radius: 4px;
   }
+
   button:hover {
     background-color: var(--accent-color);
   }
+
   .image-gallery {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .image-gallery img {
     max-width: 100%;
     height: auto;
@@ -87,33 +95,28 @@
 
   <!-- السكريبت الجافا سكريبت -->
   <script>
-    // دالة لرفع الصورة
     function uploadImage() {
       var fileInput = document.getElementById('fileInput');
       var uploadForm = document.getElementById('uploadForm');
       var formData = new FormData(uploadForm);
 
-      // عرض حالة التحميل
       var uploadStatus = document.getElementById('uploadStatus');
       uploadStatus.textContent = 'جارٍ رفع الصورة...';
 
-      // طلب HTTP POST إلى عنوان URL المستهدف
       fetch('/upload', {
         method: 'POST',
         body: formData
       })
       .then(response => response.json())
       .then(result => {
-        // عرض الصورة المحملة بنجاح
         var imageGallery = document.getElementById('imageGallery');
         var imgElement = document.createElement('img');
-        imgElement.src = result.imageUrl; // تستخدم الرد من الخادم لعرض عنوان URL للصورة
+        imgElement.src = result.imageUrl;
         imgElement.alt = 'Uploaded Image';
         imageGallery.appendChild(imgElement);
         uploadStatus.textContent = 'تم رفع الصورة بنجاح!';
       })
       .catch(error => {
-        // التعامل مع أخطاء الرفع
         uploadStatus.textContent = 'حدث خطأ أثناء رفع الصورة: ' + error.message;
       });
     }
