@@ -1,54 +1,58 @@
-// Initialize Cloudinary widget
-const myWidget = cloudinary.createUploadWidget({
-    cloudName: 'YOUR_CLOUD_NAME', // Replace with your Cloudinary cloud name
-    uploadPreset: 'YOUR_UPLOAD_PRESET' // Replace with your Cloudinary upload preset
-}, (error, result) => {
-    if (!error && result && result.event === "success") {
-        const imageUrl = result.info.secure_url;
-        // Add image URL to Firestore or any other database
-        saveImageUrl(imageUrl);
-    }
-});
+// script.js
+document.addEventListener('DOMContentLoaded', loadGallery);
 
-// Function to open Cloudinary widget
 function uploadImage() {
-    myWidget.open();
+    const input = document.getElementById('imageInput');
+    const file = input.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const imageUrl = e.target.result;
+        saveImage(imageUrl);
+        displayImage(imageUrl);
+    };
+    reader.readAsDataURL(file);
 }
 
-// Function to save image URL to database (e.g., Firestore)
-function saveImageUrl(url) {
-    // You can implement saving to Firestore or any other database here
-    // For example, if using Firestore:
-    // db.collection("images").add({
-    //     url: url,
-    //     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    // }).then(() => {
-    //     console.log("Image URL saved successfully!");
-    // }).catch((error) => {
-    //     console.error("Error adding document: ", error);
-    // });
+function saveImage(url) {
+    let images = localStorage.getItem('animeImages');
+    images = images ? JSON.parse(images) : [];
+    images.push(url);
+    localStorage.setItem('animeImages', JSON.stringify(images));
 }
 
-// Function to display images (if using Firestore)
-function displayImages() {
-    const imageGallery = document.getElementById('imageGallery');
-    // Clear previous images
-    imageGallery.innerHTML = '';
-
-    // Fetch images from Firestore
-    // Replace this part with your own implementation based on your database
-    // db.collection("images").orderBy("timestamp", "desc").limit(10).get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         const data = doc.data();
-    //         const imageUrl = data.url;
-    //         const imgElement = document.createElement('img');
-    //         imgElement.src = imageUrl;
-    //         imageGallery.appendChild(imgElement);
-    //     });
-    // }).catch((error) => {
-    //     console.error("Error getting documents: ", error);
-    // });
+function loadGallery() {
+    let images = localStorage.getItem('animeImages');
+    images = images ? JSON.parse(images) : [];
+    images.forEach(url => displayImage(url));
 }
 
-// Display images initially when page loads
-displayImages();
+function displayImage(url) {
+    const gallery = document.getElementById('gallery');
+    const container = document.createElement('div');
+    container.className = 'image-container';
+
+    const img = document.createElement('img');
+    img.src = url;
+
+    const downloadButton = document.createElement('button');
+    downloadButton.className = 'download-button';
+    downloadButton.innerText = 'تنزيل';
+    downloadButton.onclick = function() {
+        downloadImage(url);
+    };
+
+    container.appendChild(img);
+    container.appendChild(downloadButton);
+    gallery.appendChild(container);
+}
+
+function downloadImage(url) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'anime-image';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
