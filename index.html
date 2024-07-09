@@ -3,35 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Uploader</title>
+<title>موقع تحميل الصور</title>
 <style>
-  /* تنسيق بسيط للصفحة */
   body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
     text-align: center;
     margin: 20px;
   }
-  img {
+  .container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h1 {
+    color: #333;
+  }
+  form {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  input[type="file"] {
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  .image-gallery {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .image-gallery img {
     max-width: 100%;
     height: auto;
-    margin-top: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
   }
 </style>
 </head>
 <body>
-  <h1>مرحبًا بك في موقع تحميل الصور</h1>
+  <div class="container">
+    <h1>مرحبًا بك في موقع تحميل الصور</h1>
 
-  <!-- نموذج لتحميل الصور -->
-  <form id="uploadForm" enctype="multipart/form-data">
-    <input type="file" id="fileInput" accept="image/*" required>
-    <button type="button" onclick="uploadImage()">رفع الصورة</button>
-  </form>
+    <!-- نموذج لتحميل الصور -->
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" id="fileInput" accept="image/*" required>
+      <button type="button" onclick="uploadImage()">رفع الصورة</button>
+    </form>
 
-  <!-- عرض الصور المحملة -->
-  <div id="imageContainer"></div>
+    <!-- معرض الصور المحملة -->
+    <div class="image-gallery" id="imageGallery"></div>
 
-  <!-- نص التحميل -->
-  <p id="uploadStatus"></p>
+    <!-- نص التحميل -->
+    <p id="uploadStatus"></p>
+  </div>
 
   <!-- السكريبت الجافا سكريبت -->
   <script>
@@ -53,11 +95,11 @@
       .then(response => response.json())
       .then(result => {
         // عرض الصورة المحملة بنجاح
-        var imageContainer = document.getElementById('imageContainer');
+        var imageGallery = document.getElementById('imageGallery');
         var imgElement = document.createElement('img');
         imgElement.src = result.imageUrl; // تستخدم الرد من الخادم لعرض عنوان URL للصورة
         imgElement.alt = 'Uploaded Image';
-        imageContainer.appendChild(imgElement);
+        imageGallery.appendChild(imgElement);
         uploadStatus.textContent = 'تم رفع الصورة بنجاح!';
       })
       .catch(error => {
