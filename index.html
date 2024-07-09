@@ -5,11 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>موقع تحميل الصور</title>
 <style>
+  /* استخدام الألوان */
+  :root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --dark-color: #34495e;
+    --light-color: #f39c12;
+  }
+
   body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: var(--light-color);
     text-align: center;
     margin: 20px;
+    color: var(--dark-color);
   }
   .container {
     max-width: 600px;
@@ -20,7 +30,7 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   h1 {
-    color: #333;
+    color: var(--primary-color);
   }
   form {
     margin-top: 20px;
@@ -34,14 +44,14 @@
   }
   button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 4px;
   }
   button:hover {
-    background-color: #45a049;
+    background-color: var(--accent-color);
   }
   .image-gallery {
     margin-top: 20px;
