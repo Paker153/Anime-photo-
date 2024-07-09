@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', loadGallery);
 function uploadImage() {
     const input = document.getElementById('imageInput');
     const file = input.files[0];
-    if (!file) return;
+    if (!file) {
+        alert('يرجى اختيار صورة أولاً.');
+        return;
+    }
 
     const reader = new FileReader();
     reader.onload = function(e) {
