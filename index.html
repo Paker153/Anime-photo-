@@ -1,125 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>موقع تحميل الصور</title>
-<style>
-  /* تعريف الألوان */
-  :root {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-    --accent-color: #e74c3c;
-    --dark-color: #34495e;
-    --light-color: #f39c12;
-  }
-
-  body {
-    font-family: Arial, sans-serif;
-    background-color: var(--light-color);
-    color: var(--dark-color);
-    text-align: center;
-    margin: 20px;
-  }
-
-  .container {
-    max-width: 600px;
-    margin: auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-
-  h1 {
-    color: var(--primary-color);
-  }
-
-  form {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  input[type="file"] {
-    margin-bottom: 10px;
-  }
-
-  button {
-    padding: 10px 20px;
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-
-  button:hover {
-    background-color: var(--accent-color);
-  }
-
-  .image-gallery {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .image-gallery img {
-    max-width: 100%;
-    height: auto;
-    margin: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.2);
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    <!-- Link to your existing CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>مرحبًا بك في موقع تحميل الصور</h1>
+    <!-- Your existing website content -->
 
-    <!-- نموذج لتحميل الصور -->
-    <form id="uploadForm" enctype="multipart/form-data">
-      <input type="file" id="fileInput" accept="image/*" required>
-      <button type="button" onclick="uploadImage()">رفع الصورة</button>
-    </form>
+    <!-- Section to upload and display anime images -->
+    <section class="upload-section">
+        <h2>Upload Your Anime Image</h2>
+        <input type="file" accept="image/*" id="fileInput">
+        <button onclick="uploadImage()">Upload</button>
+    </section>
 
-    <!-- معرض الصور المحملة -->
-    <div class="image-gallery" id="imageGallery"></div>
+    <section class="gallery-section">
+        <h2>Recent Uploads</h2>
+        <div id="imageGallery"></div>
+    </section>
 
-    <!-- نص التحميل -->
-    <p id="uploadStatus"></p>
-  </div>
+    <!-- End of your existing website content -->
 
-  <!-- السكريبت الجافا سكريبت -->
-  <script>
-    function uploadImage() {
-      var fileInput = document.getElementById('fileInput');
-      var uploadForm = document.getElementById('uploadForm');
-      var formData = new FormData(uploadForm);
-
-      var uploadStatus = document.getElementById('uploadStatus');
-      uploadStatus.textContent = 'جارٍ رفع الصورة...';
-
-      fetch('/upload', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(result => {
-        var imageGallery = document.getElementById('imageGallery');
-        var imgElement = document.createElement('img');
-        imgElement.src = result.imageUrl;
-        imgElement.alt = 'Uploaded Image';
-        imageGallery.appendChild(imgElement);
-        uploadStatus.textContent = 'تم رفع الصورة بنجاح!';
-      })
-      .catch(error => {
-        uploadStatus.textContent = 'حدث خطأ أثناء رفع الصورة: ' + error.message;
-      });
-    }
-  </script>
+    <!-- Include Firebase scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
